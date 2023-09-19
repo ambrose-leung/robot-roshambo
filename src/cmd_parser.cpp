@@ -119,6 +119,7 @@ int process_input()
                 parser_state_before_skip = PARSER_STATE_IDLE;
                 parser_state = PARSER_STATE_SKIP;
             }
+            break;
         case PARSER_STATE_SKIP:
             switch (ch)
             {

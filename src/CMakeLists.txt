@@ -14,6 +14,7 @@ add_executable(${PROJECT_NAME}
 # Link to pico_stdlib (gpio, time, etc. functions)
 target_link_libraries(${PROJECT_NAME} 
     pico_stdlib
+    pico_rand
 )
 
 # Creates a pico-sdk subdirectory in our project for the libraries

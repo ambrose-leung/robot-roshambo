@@ -148,9 +148,8 @@ int game_process_moves()
             case MOVE_PLAY:
                 send_move(MOVE_YES);
                 led_clear();
-                // TODO: Call the AI here and get a move
-                // In the mean time. always choose ROCK
-                my_move = MOVE_ROCK;
+                // Call the AI here and get a move
+                my_move = ai_get_move();
                 send_move(my_move);
                 game_state = GAME_STATE_MOVE;
                 break;

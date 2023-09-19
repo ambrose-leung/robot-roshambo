@@ -29,14 +29,25 @@ void setup()
     return;
 }
 
+bool isPlaying = false;
+
 // This loop function will be called forever
 void loop()
 {
 
     Game_State game_state = game_get_state();
-    if (GAME_STATE_IDLE == game_state && true == get_bootsel_button())
+    if (!isPlaying && GAME_STATE_IDLE == game_state && true == get_bootsel_button())
+    {
+        isPlaying = true;
+        game_push_move(MOVE_START);
+    }
+    else if(isPlaying && GAME_STATE_IDLE == game_state)
     {
         game_push_move(MOVE_START);
+        int currentMovNum = get_current_move_number();
+        if(currentMovNum == 0) {
+            isPlaying = false;
+        }
     }
     else
     {

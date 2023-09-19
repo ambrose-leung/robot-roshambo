@@ -47,7 +47,7 @@ bool __no_inline_not_in_flash_func(get_bootsel_button)() {
                     IO_QSPI_GPIO_QSPI_SS_CTRL_OEOVER_BITS);
 
     restore_interrupts(flags);
-
+    // bool button_state = 0;
     return button_state;
 }
 
