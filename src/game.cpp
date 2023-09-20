@@ -3,6 +3,7 @@
 #include "pico/stdlib.h"
 #include "pico/util/queue.h"
 
+#include <string>
 #include "error.h"
 #include "game.h"
 #include "uart.h"
@@ -14,6 +15,17 @@ Game_State game_state;
 
 Move my_move;
 Move their_move;
+
+bool gameIsInSession = false;
+
+void set_isGameInSession(bool val){
+    gameIsInSession = val;
+    reset_move_number();
+}
+
+bool get_isGameInSession(){
+    return gameIsInSession;
+}
 
 Game_State game_get_state()
 {
@@ -95,36 +107,44 @@ int game_push_move(Move move)
 
 void send_move(const Move &move)
 {
+    std::string msg = "ERROR";
     switch (move)
     {
     case MOVE_PLAY:
-        uart_puts(UART_ID, "PLAY?\n");
+        msg = "PLAY?";
         break;
     case MOVE_YES:
-        uart_puts(UART_ID, "YES!\n");
+        msg = "YES!";
         break;
     case MOVE_ROCK:
-        uart_puts(UART_ID, "ROCK\n");
+        msg = "ROCK";
         break;
     case MOVE_PAPER:
-        uart_puts(UART_ID, "PAPER\n");
+        msg = "PAPER";
         break;
     case MOVE_SCISSORS:
-        uart_puts(UART_ID, "SCISSORS\n");
+        msg = "SCISSORS";
         break;
     case MOVE_YOU_WIN:
-        uart_puts(UART_ID, "YOU WIN\n");
+        msg = "YOU WIN";
         break;
     case MOVE_I_WIN:
-        uart_puts(UART_ID, "I WIN\n");
+        msg = "I WIN";
         break;
     case MOVE_TIE:
-        uart_puts(UART_ID, "TIE\n");
+        msg = "TIE";
+        break;
+    case GAME_START:
+        msg = "GAME";
         break;
     default:
-        uart_puts(UART_ID, "ERROR\n");
+        msg = "ERROR";
         break;
     }
+    std::string moveNum = std::to_string(get_current_move_number());
+    std::string gameIsPlaying = std::to_string(get_isGameInSession());
+    msg = msg + "_" + moveNum + "-" + gameIsPlaying;
+    uart_puts(UART_ID, msg.append("\n").c_str());
     return;
 }
 
@@ -142,6 +162,7 @@ int game_process_moves()
             switch (move)
             {
             case MOVE_START:
+            case GAME_START:
                 send_move(MOVE_PLAY);
                 game_state = GAME_STATE_INVITE;
                 break;

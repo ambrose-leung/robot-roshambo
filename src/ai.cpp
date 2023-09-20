@@ -205,6 +205,9 @@ Move compute_move_based_on_last_game_outcome(int takeLast = -1)
 	return compute_move_based_on_aggregate(current_move,takeLast,addR,addP,addS);
 }
 
+void reset_move_number(){
+    current_move = 1;
+}
 int get_current_move_number(){
     return current_move;
 }

@@ -17,7 +17,8 @@ typedef enum e_Move
     MOVE_YOU_WIN = 7,
     MOVE_I_WIN = 8,
     MOVE_TIE = 9,
-    MOVE_ERROR = 10
+    MOVE_ERROR = 10,
+    GAME_START = 11
 } Move;
 
 typedef enum e_Game_State
@@ -32,3 +33,5 @@ int init_game_engine();
 int game_push_move(Move move);
 int game_process_moves();
 Game_State game_get_state(); 
+bool get_isGameInSession();
+void set_isGameInSession(bool val);

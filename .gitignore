@@ -33,3 +33,4 @@
 
 # Don't check-in the build files
 build
+.vscode/settings.json

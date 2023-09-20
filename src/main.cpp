@@ -29,24 +29,31 @@ void setup()
     return;
 }
 
-bool isPlaying = false;
-
+bool isGameInitiatedByMe = false;
 // This loop function will be called forever
 void loop()
 {
-
     Game_State game_state = game_get_state();
-    if (!isPlaying && GAME_STATE_IDLE == game_state && true == get_bootsel_button())
+    bool isGameInSession = get_isGameInSession();
+    if (!isGameInSession && GAME_STATE_IDLE == game_state && true == get_bootsel_button())
     {
-        isPlaying = true;
-        game_push_move(MOVE_START);
+        set_isGameInSession(true);
+        isGameInitiatedByMe = true;
+        game_push_move(GAME_START);
     }
-    else if(isPlaying && GAME_STATE_IDLE == game_state)
+    else if(isGameInSession && GAME_STATE_IDLE == game_state)
     {
-        game_push_move(MOVE_START);
+        if(isGameInitiatedByMe){
+            //initiator of the game is responsible for sending the PLAY? messages
+            game_push_move(GAME_START);
+        }
+        else{
+            process_input();
+        }
         int currentMovNum = get_current_move_number();
         if(currentMovNum == 0) {
-            isPlaying = false;
+            set_isGameInSession(false);
+            isGameInitiatedByMe = false;
         }
     }
     else

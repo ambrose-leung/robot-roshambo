@@ -51,6 +51,12 @@ int process_input()
             case 'P':
                 parser_state = PARSER_STATE_P;
                 break;
+            case 'G':
+                parser_state = PARSER_STATE_PLAY;
+                parser_state_before_skip = parser_state;
+                parser_state = PARSER_STATE_SKIP;
+                set_isGameInSession(true);
+                break;
             case 'Y':
                 parser_state = PARSER_STATE_Y;
                 break;
