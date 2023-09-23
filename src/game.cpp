@@ -141,9 +141,10 @@ void send_move(const Move &move)
         msg = "ERROR";
         break;
     }
-    std::string moveNum = std::to_string(get_current_move_number());
-    std::string gameIsPlaying = std::to_string(get_isGameInSession());
-    msg = msg + "_" + moveNum + "-" + gameIsPlaying;
+    //uncomment below for debugging purposes
+    // std::string moveNum = std::to_string(get_current_move_number());
+    // std::string gameIsPlaying = std::to_string(get_isGameInSession());
+    // msg = msg + "_" + moveNum + "-" + gameIsPlaying;
     uart_puts(UART_ID, msg.append("\n").c_str());
     return;
 }
