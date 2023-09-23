@@ -20,7 +20,7 @@ int randint(int n) {
     int end = RAND_MAX / n; // truncate skew
     end *= n;
 
-    int r;
+    unsigned int r;
     while ((r = get_rand_32()) >= end);
 
     return r % n;
@@ -46,7 +46,8 @@ Move random_move()
 Move ai_get_move()
 {
     Move my_move;
-    my_move = compute_move_based_on_last_game_outcome(20);
+    //my_move = compute_move_based_on_last_game_outcome(20);
+    my_move = random_move();
     my_moves[current_move % MOVES_PER_GAME] = my_move;
     return my_move;
 }
