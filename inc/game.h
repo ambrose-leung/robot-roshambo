@@ -18,7 +18,7 @@ typedef enum e_Move
     MOVE_I_WIN = 8,
     MOVE_TIE = 9,
     MOVE_ERROR = 10,
-    GAME_START = 11
+    MOVE_GAME = 11
 } Move;
 
 typedef enum e_Game_State

@@ -39,19 +39,22 @@ void loop()
     {
         set_isGameInSession(true);
         isGameInitiatedByMe = true;
-        game_push_move(GAME_START);
+        game_push_move(MOVE_GAME);
     }
     else if (isGameInSession && GAME_STATE_IDLE == game_state)
     {
-        if(isGameInitiatedByMe){
-            //initiator of the game is responsible for sending the PLAY? messages
+        if (isGameInitiatedByMe)
+        {
+            // initiator of the game is responsible for sending the PLAY? messages
             game_push_move(MOVE_START);
         }
-        else{
+        else
+        {
             process_input();
         }
         int currentMovNum = get_current_move_number();
-        if (currentMovNum == 0) {
+        if (currentMovNum == 0)
+        {
             set_isGameInSession(false);
             isGameInitiatedByMe = false;
         }

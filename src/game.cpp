@@ -134,7 +134,7 @@ void send_move(const Move &move)
     case MOVE_TIE:
         msg = "TIE";
         break;
-    case GAME_START:
+    case MOVE_GAME:
         msg = "GAME";
         break;
     default:
@@ -165,8 +165,8 @@ int game_process_moves()
                 send_move(MOVE_PLAY);
                 game_state = GAME_STATE_INVITE;
                 break;
-            case GAME_START:
-                send_move(GAME_START);
+            case MOVE_GAME:
+                send_move(MOVE_GAME);
                 game_state = GAME_STATE_INVITE;
                 break;
             case MOVE_PLAY:
