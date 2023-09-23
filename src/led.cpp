@@ -127,7 +127,7 @@ void led_set_result(Move result)
     }
     else if (result == MOVE_TIE)
     {
-        led_value |= (uint16_t)0x0010;
+        led_value |= (uint16_t)0x0020;
     }
 
     write_value(led_value);
