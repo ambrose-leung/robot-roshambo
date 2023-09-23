@@ -162,8 +162,11 @@ int game_process_moves()
             switch (move)
             {
             case MOVE_START:
-            case GAME_START:
                 send_move(MOVE_PLAY);
+                game_state = GAME_STATE_INVITE;
+                break;
+            case GAME_START:
+                send_move(GAME_START);
                 game_state = GAME_STATE_INVITE;
                 break;
             case MOVE_PLAY:
